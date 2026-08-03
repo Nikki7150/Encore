@@ -1,0 +1,89 @@
+.explore-container {
+    padding: 40px;
+}
+
+.explore-title {
+    color: #fff;
+    font-size: 2rem;
+    margin: 5px;
+    font-family: 'Sedgwick Ave', cursive;
+}
+
+.loading {
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.error {
+    color: #ec4899;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    font-weight: semibold;
+}
+
+.event-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.event-item {
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+/*----------------------------------------------- SEARCH BAR -----------------------------------------------*/
+.searchbar {
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.searchbar button {
+    background: linear-gradient(to right, #413d3d, #a665de);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-height: 80px;
+    min-width: 80px;
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+.searchbar form {
+    padding: 20px;
+    width: 100%;
+    border: none;
+    border-radius: 50px;
+    height: 40px;
+    margin-right: 10px;
+    background-color: #413d3d;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    padding-right: 0;
+}
+
+.searchbar input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #fff;
+    font-size: 1rem;
+    height: 100%;
+}
+
+.searchbar input::placeholder {
+    color: #fff;
+    opacity: 0.7;
+}

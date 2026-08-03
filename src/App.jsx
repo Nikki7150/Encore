@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import Explore from './pages/Explore'
 
 function App() {
   return (
     <div className="App">
+      <Explore />
     </div>
   )
 }
