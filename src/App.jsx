@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import Explore from './pages/Explore'
+import Login from './pages/Login'
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
-      <Explore />
-    </div>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/explore" element={<Explore />} />
+    </Routes>
   )
 }
 

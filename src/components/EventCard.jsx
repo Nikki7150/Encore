@@ -1,6 +1,4 @@
-import '../styles/EventCard.css';
-
-
+import '../styles/Explore.css';
 
 const EventCard = ({ event, isSaved, onToggleSave }) => {
     return (

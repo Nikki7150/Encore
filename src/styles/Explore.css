@@ -90,16 +90,20 @@
 
 /*----------------------------------------------- EVENT CARD -----------------------------------------------*/
 .event-card {
-    background-color: #9c7676;
-    border-radius: 10px;
-    padding: 20px;
+    background-color: #9ccdd1;
+    border-radius: -50px;
     margin: 10px 0;
     width: 100%;
-    max-width: 600px;
+    min-width: 1000px;
+    max-width: 1000px;
+    height: 200px;
+    padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     display: flex;
     flex-direction: row;
+    mask: repeating-conic-gradient(from 45deg at 10px 50%,#0000,#000 1deg 89deg,#0000 90deg 180deg) -10px 50%/100% 20px
+
 }
 
 .event-card:hover {
@@ -114,4 +118,5 @@
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    border-left: 5px dashed #fff;
 }
