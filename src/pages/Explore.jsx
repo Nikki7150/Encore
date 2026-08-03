@@ -2,6 +2,8 @@ import SearchBar from "../components/SearchBar";
 import { useState } from "react";
 import { searchEventsByCity } from "../api/ticketmaster";
 import '../styles/Explore.css';
+import EventCard from "../components/EventCard";
+import { Link } from "react-router-dom";
 
 const Explore = () => {
     const [events, setEvents] = useState([]);
@@ -29,7 +31,9 @@ const Explore = () => {
             {error && <p className="error">Error: {error}</p>}
             <ul className="event-list">
                 {events && events.map((event) => (
-                    <li key={event.id} className="event-item">{event.name}</li>
+                    <Link to={`/event/${event.id}`} key={event.id}>
+                        <EventCard key={event.id} event={event} />
+                    </Link>
                 ))}
                 {events.length === 0 && !loading && !error && <p>No events found.</p>}
             </ul>
