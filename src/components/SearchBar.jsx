@@ -2,8 +2,8 @@ import { useState } from "react";
 import '../styles/Explore.css';
 import { FaSearch } from "react-icons/fa";
 
-const Searchbar = ({ onSearch }) => {
-    const [query, setQuery] = useState("");
+const Searchbar = ({ onSearch, initialQuery }) => {
+    const [query, setQuery] = useState(initialQuery || "");
 
     const handleInputChange = (e) => {
         setQuery(e.target.value);

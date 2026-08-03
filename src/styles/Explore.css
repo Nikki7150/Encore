@@ -220,6 +220,11 @@
     margin-bottom: 20px;
 }
 
+.save-button:hover {
+    background: linear-gradient(to right, #413d3d, #a665de);
+    color: #fff;
+}
+
 .event-save.saved {
     background: linear-gradient(to right, #6f8b8f, #9ccdd1);
     color: #000000;

@@ -28,7 +28,7 @@ const EventCard = ({ event, isSaved, onToggleSave }) => {
             </div>
             <div className={isSaved ? "event-save saved" : "event-save"}>
                 <h2 className="event-name-2">{event.name}</h2>
-                <button className="save-button" onClick={(e) => {e.stopPropagation(); onToggleSave();}}>
+                <button className="save-button" onClick={(e) => {e.stopPropagation(); onToggleSave(event);}}>
                     {isSaved ? <IoBookmark /> : <IoBookmarkOutline />}
                 </button>
             </div>
