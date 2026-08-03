@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { searchEventsByCity } from "../api/ticketmaster";
 import '../styles/Explore.css';
 import EventCard from "../components/EventCard";
-import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { getSavedEvents, saveEvent, unsaveEvent } from "../api/userData";
@@ -32,11 +31,19 @@ const Explore = () => {
         const isSaved = savedIds.has(event.id);
         const next = new Set(savedIds);
         if (isSaved) {
-            await unsaveEvent(user.uid, event.id);
-            next.delete(event.id);
+            try {
+                await unsaveEvent(user.uid, event.id);
+                next.delete(event.id);
+            } catch (error) {
+                console.error("Error unsaving event:", error);
+            }
         } else {
-            await saveEvent(user.uid, event);
-            next.add(event.id);
+            try {
+                await saveEvent(user.uid, event);
+                next.add(event.id);
+            } catch (error) {
+                console.error("Error saving event:", error);
+            }
         }
         setSavedIds(next);
     };
@@ -70,9 +77,7 @@ const Explore = () => {
             {error && <p className="error">Error: {error}</p>}
             <ul className="event-list">
                 {events && events.map((event) => (
-                    <Link to={`/event/${event.id}`} state={{ event, searchQuery: lastSearch }} key={event.id}>
-                        <EventCard key={event.id} event={event} isSaved={savedIds.has(event.id)} onToggleSave={handleToggleSave} />
-                    </Link>
+                    <EventCard key={event.id} event={event} isSaved={savedIds.has(event.id)} onToggleSave={handleToggleSave} searchQuery={lastSearch} />
                 ))}
                 {events.length === 0 && !loading && !error && <p>No events found.</p>}
             </ul>

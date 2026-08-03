@@ -31,10 +31,6 @@
     align-items: center;
 }
 
-.event-list a {
-    text-decoration: none;
-}
-
 .event-item {
     color: #fff;
     font-size: 1.2rem;
@@ -121,6 +117,21 @@
     radial-gradient(20px at 100% 20px,#0000 98%,#000) 0 -20px;
     border-right: 3px dashed #222020;
     mask-composite: intersect;
+}
+
+.event-link {
+    flex: 3;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .event-container {

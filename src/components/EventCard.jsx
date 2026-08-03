@@ -1,7 +1,8 @@
 import '../styles/Explore.css';
 import { IoBookmarkOutline, IoBookmark } from 'react-icons/io5';
+import { Link } from "react-router-dom";
 
-const EventCard = ({ event, isSaved, onToggleSave }) => {
+const EventCard = ({ event, isSaved, onToggleSave, searchQuery }) => {
     const timeStr = event.dates.start.localTime;
     let formattedTime = 'TBA';
 
@@ -16,19 +17,21 @@ const EventCard = ({ event, isSaved, onToggleSave }) => {
 
     return (
         <div className="event-card">
-            <div className="event-info">
-                <div className="event-container">
-                    <h2 className="event-name">{event.name}</h2>
-                    <div className="event-column">
-                        <p className="event-date">{event.dates.start.localDate}</p>
-                        <p className="event-time">Time: <span>{formattedTime}</span></p>
-                        <p className="event-venue">Venue: <span>{event._embedded.venues[0].name}</span></p>
+            <Link to={`/event/${event.id}`} state={{ event, searchQuery }} className="event-link">
+                <div className="event-info">
+                    <div className="event-container">
+                        <h2 className="event-name">{event.name}</h2>
+                        <div className="event-column">
+                            <p className="event-date">{event.dates.start.localDate}</p>
+                            <p className="event-time">Time: <span>{formattedTime}</span></p>
+                            <p className="event-venue">Venue: <span>{event._embedded.venues[0].name}</span></p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Link>
             <div className={isSaved ? "event-save saved" : "event-save"}>
                 <h2 className="event-name-2">{event.name}</h2>
-                <button className="save-button" onClick={(e) => {e.stopPropagation(); onToggleSave(event);}}>
+                <button className="save-button" onClick={() => onToggleSave(event)}>
                     {isSaved ? <IoBookmark /> : <IoBookmarkOutline />}
                 </button>
             </div>
