@@ -7,6 +7,11 @@
     font-size: 2rem;
     margin: 5px;
     font-family: 'Sedgwick Ave', cursive;
+    background-image: linear-gradient(to right, #ec4899, #a665de, #9ccdd1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline-block;
 }
 
 .loading {

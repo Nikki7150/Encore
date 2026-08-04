@@ -13,10 +13,11 @@
     z-index: 1000;
     width: 70px;
     overflow: hidden;
-    transition: width 0.9s ease;
+    transition: width 0.6s ease;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     padding-bottom: 20px;
+    font-family: 'Sedgwick Ave', cursive;
 }
 
 .navbar:hover {
@@ -44,9 +45,9 @@
     color: #ecd5d5;
     padding: 12px 16px;
     width: 100%;
-    transition: background-color 0.3s ease;
     white-space: nowrap;
     gap: 12px;
+    transition: background-color 0.9s ease, color 0.9s ease;
 }
 
 .nav-icon {
@@ -71,7 +72,21 @@
     color: #ecd5d5;
     padding: 12px 16px;
     width: 100%;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.9s ease, color 0.9s ease;
     white-space: nowrap;
     gap: 12px;
+}
+
+.navbar-links a.active,
+.navbar-profile a.active {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #ec4899;
+    width: 100%;
+}
+
+.nav-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ecd5d5;
+    margin-left: 16px;
 }
