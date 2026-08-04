@@ -1,6 +1,6 @@
 import SearchBar from "../components/SearchBar";
 import { useState, useEffect } from "react";
-import { searchEventsByCity } from "../api/ticketmaster";
+import { searchEventsByArtist, searchEventsByCity } from "../api/ticketmaster";
 import '../styles/Explore.css';
 import EventCard from "../components/EventCard";
 import { useLocation } from "react-router-dom";
@@ -14,6 +14,7 @@ const Explore = () => {
     const [lastSearch, setLastSearch] = useState('');
     const { user } = useAuth();
     const [savedIds, setSavedIds] = useState(new Set());
+    const [mode, setMode] = useState('city');
 
     useEffect(() => {
         if (user) {
@@ -53,7 +54,7 @@ const Explore = () => {
         setError(null);
         setLastSearch(query);
         try {
-            const result = await searchEventsByCity(query);
+            const result = mode === 'city' ? await searchEventsByCity(query) : await searchEventsByArtist(query);
             setEvents(result);
         } catch (err) {
             setError(err.message);
@@ -65,13 +66,17 @@ const Explore = () => {
 
     useEffect(() => {
         if (location.state?.searchQuery) {
-            handleSearch(location.state.searchQuery);
+            handleSearch(location.state.searchQuery, mode);
         }
     }, []);
 
     return (
         <div className="explore-container">
             <h1 className="explore-title">explore</h1>
+            <div className="mode-toggle">
+                <button className="city-mode" onClick={() => setMode('city')} style={mode === 'city' ? { backgroundColor: '#9ccdd1', color: '#222020' } : {}}>City</button>
+                <button className="artist-mode" onClick={() => setMode('keyword')} style={mode === 'keyword' ? { backgroundColor: '#9ccdd1', color: '#222020' } : {}}>Artist / Venue</button>
+            </div>
             <SearchBar onSearch={handleSearch} initialQuery={location.state?.searchQuery || ''} />
             {loading && <p className="loading">Loading...</p>}
             {error && <p className="error">Error: {error}</p>}

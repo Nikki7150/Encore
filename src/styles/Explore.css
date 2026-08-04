@@ -42,6 +42,22 @@
     margin: 10px 0;
 }
 
+.mode-toggle {
+    margin: 20px 0;
+}
+
+.city-mode, .artist-mode {
+    background: transparent;
+    color: #9ccdd1;
+    border: 1px solid #9ccdd1;
+    border-radius: 5px;
+    cursor: pointer;
+    min-height: 40px;
+    min-width: 100px;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
 /*----------------------------------------------- SEARCH BAR -----------------------------------------------*/
 .searchbar {
     margin: 20px;
