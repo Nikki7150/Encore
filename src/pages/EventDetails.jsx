@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import '../styles/EventDetails.css';
 import { useLocation } from 'react-router-dom';
-import { FaAngleLeft } from "react-icons/fa";
+import { FaAngleLeft, FaRegCalendar, FaCalendarAlt, FaMapMarker, FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const EventDetails = () => {
@@ -25,17 +25,74 @@ const EventDetails = () => {
         formattedTime = `${hour}:${minuteStr} ${ampm}`;
     }
 
+    const rawDate = event.dates.start.localDate; // Example: "2026-08-03"
+    const formattedDate = new Date(`${rawDate}T00:00:00`).toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+    });
+
+    const venue = event._embedded?.venues?.[0];
+    const address = venue?.address;
+    const venueName = venue?.name || 'N/A';
+    const addressLine1 = address?.line1 || '';
+    const cityName = address?.city?.name || '';
+    const stateCode = address?.state?.stateCode || '';
+    const postalCode = address?.postalCode || '';
+    const formattedAddress = [addressLine1, cityName, stateCode, postalCode].filter(Boolean).join(', ') || 'N/A';
+    const directionsQuery = [venueName, addressLine1, cityName, stateCode].filter(Boolean).join(', ');
+
     return (
         <div className="event-details-screen">
-            <Link to="/explore" state={{ searchQuery: location.state?.searchQuery }} className="back-button">
-                <FaAngleLeft />
-            </Link>
             <div className="event-details-container">
-                <h1 className="event-details-title">{event.name}</h1>
-                <p className="event-details-date">Date: {event.dates.start.localDate}</p>
-                <p className="event-details-time">Time: {formattedTime}</p>
-                <p className="event-details-venue">Venue: {event._embedded.venues[0].name}</p>
-                <p className="event-details-description">{event.info || 'No description available.'}</p>
+                <div className="event-image-container">
+                    <Link to="/explore" state={{ searchQuery: location.state?.searchQuery }} className="back-button">
+                        <FaAngleLeft />
+                    </Link>
+                    <img src={event.images[0].url} alt={event.name} className="event-details-image" />
+                </div>
+                <div className="event-details-info">
+                    <h1 className="event-details-title">{event.name}</h1>
+                    <p className="event-details-date"><FaRegCalendar size={25} /> <span>{formattedDate} ● {formattedTime}</span></p>
+                    <p className="event-details-address">
+                        <FaMapMarker size={25} />{' '}
+                        <span>{formattedAddress}</span>
+                    </p>
+                    <p className="event-get-directions">
+                        <a
+                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(directionsQuery)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Get Directions
+                        </a>{' '}
+                        <FaExternalLinkAlt size={15} />
+                    </p>
+                    <button className="event-save-button" onClick={() => alert('Save functionality not implemented yet.')}>
+                        Save Event
+                    </button>
+                </div>
+            </div>
+            <div className="event-additional-container">
+                <div className="event-details-additional">
+                    <p className="event-details-status">Status: {event.dates.status.code}</p>
+                    <p className="event-details-sales">Sales Start: {new Date(event.sales.public.startDateTime).toLocaleString()}</p>
+                    <p className="event-details-sales">Sales End: {new Date(event.sales.public.endDateTime).toLocaleString()}</p>
+                    <p className="event-details-sales">Ticket Limit: {event.ticketLimit ? event.ticketLimit.info : 'N/A'}</p>
+                    <p className="event-details-sales">Ticket Availability: {event.ticketAvailability ? event.ticketAvailability.status : 'N/A'}</p>
+                    <p className="event-details-description">{event.info || 'No description available.'}</p>
+                    <a href={event.url} target="_blank" rel="noopener noreferrer" className="event-details-link">More Info <FaExternalLinkAlt size={15} /></a>
+                </div>
+                <div className="event-lineup" style={event._embedded.attractions && event._embedded.attractions.length > 0 ? {} : { display: 'none' }}>
+                    <h2 className="event-lineup-title"><FaCalendarAlt size={25} /> Lineup</h2>
+                    {event._embedded.attractions && (
+                        <ul className="event-lineup-list">
+                            {event._embedded.attractions.map((attraction) => (
+                                <li key={attraction.id} className="event-lineup-item"> {attraction.name}</li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
             </div>
         </div>
     );

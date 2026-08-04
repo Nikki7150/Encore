@@ -15,6 +15,13 @@ const EventCard = ({ event, isSaved, onToggleSave, searchQuery }) => {
         formattedTime = `${hour}:${minuteStr} ${ampm}`;
     }
 
+    const rawDate = event.dates.start.localDate; // Example: "2026-08-03"
+    const formattedDate = new Date(`${rawDate}T00:00:00`).toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+    });
+
     return (
         <div className="event-card">
             <Link to={`/event/${event.id}`} state={{ event, searchQuery }} className="event-link">
@@ -22,7 +29,7 @@ const EventCard = ({ event, isSaved, onToggleSave, searchQuery }) => {
                     <div className="event-container">
                         <h2 className="event-name">{event.name}</h2>
                         <div className="event-column">
-                            <p className="event-date">{event.dates.start.localDate}</p>
+                            <p className="event-date">{formattedDate}</p>
                             <p className="event-time">Time: <span>{formattedTime}</span></p>
                             <p className="event-venue">Venue: <span>{event._embedded.venues[0].name}</span></p>
                         </div>
