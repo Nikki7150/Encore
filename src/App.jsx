@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import EventDetails from './pages/EventDetails'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import MyEvents from './pages/MyEvents'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/event/:eventId" element={<EventDetails />} />
+        <Route path="/my-events" element={<MyEvents />} />
       </Routes>
     </div>
   )
