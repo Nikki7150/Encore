@@ -22,7 +22,7 @@ const Navbar = () => {
                     <span className="nav-icon"><IoBookmarkOutline size={25} /></span>
                     <span className="nav-label">My Events</span>
                 </NavLink>
-                <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>
+                <NavLink to="/following" className={({ isActive }) => (isActive ? 'active' : '')}>
                     <span className="nav-icon"><FaRegCheckCircle size={25} /></span>
                     <span className="nav-label">Following</span>
                 </NavLink>

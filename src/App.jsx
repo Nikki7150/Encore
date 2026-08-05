@@ -5,6 +5,7 @@ import EventDetails from './pages/EventDetails'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import MyEvents from './pages/MyEvents'
+import Following from './pages/Following'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/event/:eventId" element={<EventDetails />} />
         <Route path="/my-events" element={<MyEvents />} />
+        <Route path="/following" element={<Following />} />
       </Routes>
     </div>
   )

@@ -13,8 +13,6 @@ const Searchbar = ({ onSearch, initialQuery }) => {
         onSearch(query);
     };
 
-    
-
     return (
         <div className="searchbar">
             <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
