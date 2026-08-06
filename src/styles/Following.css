@@ -1,4 +1,41 @@
 /*----------------------------------------------- FOLLOWING PAGE -----------------------------------------------*/
+.following-container {
+    padding: 40px;
+}
+
+.following-title {
+    color: #fff;
+    font-size: 2rem;
+    margin: 5px;
+    font-family: 'Sedgwick Ave', cursive;
+    background-image: linear-gradient(to right, #ec4899, #a665de, #9ccdd1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.loading {
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.error {
+    color: #ec4899;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    font-weight: semibold;
+}
+
+.artist-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 /*----------------------------------------------- SEARCH BAR -----------------------------------------------*/
 

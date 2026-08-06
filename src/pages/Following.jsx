@@ -10,6 +10,7 @@ const Following = () => {
     const [artists, setArtists] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [lastSearch, setLastSearch] = useState('');
     const { user } = useAuth();
     const [followedArtists, setFollowedArtists] = useState(new Set());
 
@@ -49,6 +50,7 @@ const Following = () => {
     const handleSearch = async (query) => {
         setLoading(true);
         setError(null);
+        setLastSearch(query);
         try {
             const result = await searchAttractions(query);
             const filtered = result.filter(
@@ -62,25 +64,23 @@ const Following = () => {
         }
     };
 
+    useEffect(() => {
+        if (location.state?.searchQuery) {
+            handleSearch(location.state.searchQuery, mode);
+        }
+    }, []);
+
     return (
         <div className="following-container">
-            <h1 className="following-title">Following</h1>
+            <h1 className="following-title">following</h1>
             <SearchBar onSearch={handleSearch} />
             {loading && <p className="loading">Loading...</p>}
-            {error && <p className="error">{error}</p>}
+            {error && <p className="error">Error: {error}</p>}
             <div className="artist-list">
                 {artists.map((artist) => (
-                    console.log(artist),
-                    <div key={artist.id} className="artist-card-container">
-                        <ArtistCard artist={artist} />
-                        <button
-                            className={`follow-button ${followedArtists.has(artist.name) ? 'unfollow' : 'follow'}`}
-                            onClick={() => handleToggleFollow(artist)}
-                        >
-                            {followedArtists.has(artist.name) ? 'Unfollow' : 'Follow'}
-                        </button>
-                    </div>
+                    <ArtistCard key={artist.id} artist={artist} isFollowed={followedArtists.has(artist.name)} onToggleFollow={handleToggleFollow} searchQuery={lastSearch} />
                 ))}
+                {artists.length === 0 && !loading && !error && <p className="no-results">No artists found.</p>}
             </div>
         </div>
     );
