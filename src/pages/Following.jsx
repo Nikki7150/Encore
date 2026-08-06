@@ -5,6 +5,7 @@ import '../styles/Following.css';
 import ArtistCard from "../components/ArtistCard";
 import { useAuth } from "../context/AuthContext";
 import { getFollowedArtists, followArtist, unfollowArtist } from "../api/userData";
+import { useLocation } from "react-router-dom";
 
 const Following = () => {
     const [artists, setArtists] = useState([]);
@@ -13,11 +14,15 @@ const Following = () => {
     const [lastSearch, setLastSearch] = useState('');
     const { user } = useAuth();
     const [followedArtists, setFollowedArtists] = useState(new Set());
+    const location = useLocation();
+    const [followedArtistsData, setFollowedArtistsData] = useState([]);
+    const [hasSearched, setHasSearched] = useState(false);
 
     useEffect(() => {
         if (user) {
             getFollowedArtists(user.uid).then((followed) => {
-                setFollowedArtists(new Set(followed));
+                setFollowedArtists(new Set(followed.map((artist) => artist.id)));
+                setFollowedArtistsData(followed);
             });
         }
     }, [user]);
@@ -51,6 +56,7 @@ const Following = () => {
         setLoading(true);
         setError(null);
         setLastSearch(query);
+        setHasSearched(true);
         try {
             const result = await searchAttractions(query);
             const filtered = result.filter(
@@ -66,22 +72,33 @@ const Following = () => {
 
     useEffect(() => {
         if (location.state?.searchQuery) {
-            handleSearch(location.state.searchQuery, mode);
+            handleSearch(location.state.searchQuery);
         }
     }, []);
 
     return (
         <div className="following-container">
             <h1 className="following-title">following</h1>
-            <SearchBar onSearch={handleSearch} initialQuery={location.state?.searchQuery || ''} placeholder="Search for artists..." />
+            <SearchBar onSearch={handleSearch} initialQuery={location.state?.searchQuery || ''} placeholder="Search for artists..." onClear={() => { setArtists([]); setHasSearched(false); }} />
             {loading && <p className="loading">Loading...</p>}
             {error && <p className="error">Error: {error}</p>}
-            <div className="artist-list">
-                {artists.map((artist) => (
-                    <ArtistCard key={artist.id} artist={artist} isFollowed={followedArtists.has(artist.name)} onToggleFollow={handleToggleFollow} searchQuery={lastSearch} />
-                ))}
-                {artists.length === 0 && !loading && !error && <p className="no-results">No artists found.</p>}
-            </div>
+            {hasSearched && artists.length > 0 && (
+                <div className="search-results">
+                    {artists.map((artist) => (
+                        <ArtistCard key={artist.id} artist={artist} isFollowed={followedArtists.has(artist.id)} onToggleFollow={handleToggleFollow} searchQuery={lastSearch} />
+                    ))}
+                </div>
+            )}
+            {hasSearched && artists.length === 0 && !loading && !error && <p className="no-results">No artists found.</p>}
+            {!hasSearched && followedArtistsData.length > 0 && (
+                <div className="followed-artists">
+                    <h2 className="followed-artists-title">Your Followed Artists:</h2>
+                    {followedArtistsData.map((artist) => (
+                        <ArtistCard key={artist.id} artist={artist} isFollowed={true} onToggleFollow={handleToggleFollow} searchQuery={lastSearch} />
+                    ))}
+                </div>
+            )}
+            {!hasSearched && followedArtistsData.length === 0 && !loading && !error && <p className="no-followed-artists">You are not following any artists yet.</p>}
         </div>
     );
 };

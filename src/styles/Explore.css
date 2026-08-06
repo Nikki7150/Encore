@@ -61,7 +61,7 @@
     align-items: center;
 }
 
-.searchbar button {
+.search-button {
     background: linear-gradient(to right, #413d3d, #a665de);
     color: #fff;
     border: none;
@@ -71,6 +71,12 @@
     min-width: 80px;
     border-bottom-right-radius: 50px;
     border-top-right-radius: 50px;
+}
+
+.clear-button {
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
 }
 
 .searchbar form {

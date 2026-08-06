@@ -1,8 +1,8 @@
 import { useState } from "react";
 import '../styles/Explore.css';
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaTimes } from "react-icons/fa";
 
-const Searchbar = ({ onSearch, initialQuery, placeholder }) => {
+const Searchbar = ({ onSearch, initialQuery, placeholder, onClear }) => {
     const [query, setQuery] = useState(initialQuery || "");
 
     const handleInputChange = (e) => {
@@ -11,6 +11,11 @@ const Searchbar = ({ onSearch, initialQuery, placeholder }) => {
 
     const handleSearch = () => {
         onSearch(query);
+    };
+
+    const handleClear = () => {
+        setQuery("");
+        onClear?.();
     };
 
     return (
@@ -23,7 +28,8 @@ const Searchbar = ({ onSearch, initialQuery, placeholder }) => {
                     onChange={handleInputChange}
                     placeholder={placeholder || "Search..."}
                 />
-                <button onClick={handleSearch}><FaSearch size="1.25em" /></button>
+                {query && <button className="clear-button" onClick={handleClear}><FaTimes /></button>  }
+                <button onClick={handleSearch} className="search-button"><FaSearch size="1.25em" /></button>
             </form>
             
         </div>

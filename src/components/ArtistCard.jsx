@@ -33,10 +33,10 @@ const ArtistCard = ({ artist, isFollowed, onToggleFollow, searchQuery }) => {
     return (
         <div className="artist-card">
             <h2 className="artist-name">{artist.name}</h2>
-            <img src={artist.images?.[0]?.url} alt={artist.name} className="artist-image" />
+            <img src={artist.images?.[0]?.url || artist.imageUrl} alt={artist.name} className="artist-image" />
             <div className="artist-description">
-                <p className="artist-genre">Genre: {artist.classifications?.[0]?.genre?.name || "Unknown Genre"}</p>
-                <a href={artist?.url} target="_blank" rel="noopener noreferrer" className="artist-info">
+                <p className="artist-genre">Genre: {artist.classifications?.[0]?.genre?.name || artist.genre || "Unknown Genre"}</p>
+                <a href={artist?.url || artist.ticketUrl} target="_blank" rel="noopener noreferrer" className="artist-info">
                     More Info
                 </a>
                 <button
@@ -59,7 +59,7 @@ const ArtistCard = ({ artist, isFollowed, onToggleFollow, searchQuery }) => {
                             <ul>
                                 {events?.map((event) => (
                                     <li key={event.id}>
-                                        <Link to={`/event/${event.id}`} state={{ event, searchQuery, from: '/following' }} className="artist-event-link">
+                                        <Link to={`/event/${event.id}`} state={{ event, searchQuery: searchQuery, from: '/following' }} className="artist-event-link">
                                             {event.name}
                                         </Link>
                                     </li>
