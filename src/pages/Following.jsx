@@ -73,7 +73,7 @@ const Following = () => {
     return (
         <div className="following-container">
             <h1 className="following-title">following</h1>
-            <SearchBar onSearch={handleSearch} />
+            <SearchBar onSearch={handleSearch} initialQuery={location.state?.searchQuery || ''} placeholder="Search for artists..." />
             {loading && <p className="loading">Loading...</p>}
             {error && <p className="error">Error: {error}</p>}
             <div className="artist-list">

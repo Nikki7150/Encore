@@ -59,7 +59,7 @@ const ArtistCard = ({ artist, isFollowed, onToggleFollow, searchQuery }) => {
                             <ul>
                                 {events?.map((event) => (
                                     <li key={event.id}>
-                                        <Link to={`/event/${event.id}`} state={{ event, searchQuery }} className="artist-event-link">
+                                        <Link to={`/event/${event.id}`} state={{ event, searchQuery, from: '/following' }} className="artist-event-link">
                                             {event.name}
                                         </Link>
                                     </li>

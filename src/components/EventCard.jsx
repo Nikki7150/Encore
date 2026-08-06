@@ -24,7 +24,7 @@ const EventCard = ({ event, isSaved, onToggleSave, searchQuery }) => {
 
     return (
         <div className="event-card">
-            <Link to={`/event/${event.id}`} state={{ event, searchQuery }} className="event-link">
+            <Link to={`/event/${event.id}`} state={{ event, searchQuery, from: '/explore' }} className="event-link">
                 <div className="event-info">
                     <div className="event-container">
                         <h2 className="event-name">{event.name}</h2>

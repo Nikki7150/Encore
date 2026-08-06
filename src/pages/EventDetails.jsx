@@ -46,7 +46,7 @@ const EventDetails = () => {
         <div className="event-details-screen">
             <div className="event-details-container">
                 <div className="event-image-container">
-                    <Link to="/explore" state={{ searchQuery: location.state?.searchQuery }} className="back-button">
+                    <Link to={location.state?.from || '/explore'} state={{ searchQuery: location.state?.searchQuery }} className="back-button">
                         <FaAngleLeft />
                     </Link>
                     <img src={event.images[0].url} alt={event.name} className="event-details-image" />

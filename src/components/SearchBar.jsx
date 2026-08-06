@@ -2,7 +2,7 @@ import { useState } from "react";
 import '../styles/Explore.css';
 import { FaSearch } from "react-icons/fa";
 
-const Searchbar = ({ onSearch, initialQuery }) => {
+const Searchbar = ({ onSearch, initialQuery, placeholder }) => {
     const [query, setQuery] = useState(initialQuery || "");
 
     const handleInputChange = (e) => {
@@ -21,7 +21,7 @@ const Searchbar = ({ onSearch, initialQuery }) => {
                     type="text"
                     value={query}
                     onChange={handleInputChange}
-                    placeholder="Search by City..."
+                    placeholder={placeholder || "Search..."}
                 />
                 <button onClick={handleSearch}><FaSearch size="1.25em" /></button>
             </form>

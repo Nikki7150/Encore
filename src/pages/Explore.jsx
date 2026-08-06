@@ -77,7 +77,7 @@ const Explore = () => {
                 <button className="city-mode" onClick={() => setMode('city')} style={mode === 'city' ? { backgroundColor: '#9ccdd1', color: '#222020' } : {}}>City</button>
                 <button className="artist-mode" onClick={() => setMode('keyword')} style={mode === 'keyword' ? { backgroundColor: '#9ccdd1', color: '#222020' } : {}}>Artist / Venue</button>
             </div>
-            <SearchBar onSearch={handleSearch} initialQuery={location.state?.searchQuery || ''} />
+            <SearchBar onSearch={handleSearch} initialQuery={location.state?.searchQuery || ''} placeholder={mode === 'city' ? "Search by City..." : "Search by Artist or Venue..."} />
             {loading && <p className="loading">Loading...</p>}
             {error && <p className="error">Error: {error}</p>}
             <ul className="event-list">
