@@ -37,12 +37,6 @@
     align-items: center;
 }
 
-.event-item {
-    color: #fff;
-    font-size: 1.2rem;
-    margin: 10px 0;
-}
-
 .mode-toggle {
     margin: 20px 0;
 }
