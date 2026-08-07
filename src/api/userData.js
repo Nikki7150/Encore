@@ -9,7 +9,7 @@ const saveEvent = async (uid, event) => {
         venue: event._embedded?.venues?.[0]?.name || "Unknown Venue",
         city: event._embedded?.venues?.[0]?.city?.name || "Unknown City",
         date: event.dates?.start?.localDate || "Unknown Date",
-        imageUrl: event.images?.[0]?.url || "",
+        imageUrl: getBestImage(event.images)?.url || "",
         ticketUrl: event.url || "",
     };
     return setDoc(userRef, userData)

@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("");
     const [error, setError] = useState("");
     const [isSignUp, setIsSignUp] = useState(false);
     const { login, signup } = useAuth();
@@ -16,7 +17,7 @@ const Login = () => {
         setError("");
         try {
             if (isSignUp) {
-                await signup(email, password);
+                await signup(email, password, username);
             } else {
                 await login(email, password);
             }
@@ -31,6 +32,17 @@ const Login = () => {
             <h2>{isSignUp ? "Sign Up" : "Login"}</h2>
             {error && <p className="error">{error}</p>}
             <form onSubmit={handleSubmit}>
+                {isSignUp && (
+                    <div className="form-group">
+                        <label htmlFor="username">Username:</label>
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+                )}
                 <div className="form-group">
                     <label htmlFor="email">Email:</label>
                     <input

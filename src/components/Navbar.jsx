@@ -28,7 +28,7 @@ const Navbar = () => {
                 </NavLink>
             </div>
             <div className="navbar-profile">
-                <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>
+                <NavLink to="/profile" className={({ isActive }) => (isActive ? 'active' : '')}>
                     <span className="nav-icon"><FaRegUser size={25} /></span>
                     <span className="nav-label">Profile</span>
                 </NavLink>

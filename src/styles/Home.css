@@ -1,0 +1,58 @@
+/*----------------------------------------------- HOME PAGE -----------------------------------------------*/
+.home-container {
+    padding: 40px;
+}
+
+.hero-section {
+    text-align: center;
+}
+
+.hero-title {
+    color: #fff;
+    font-size: 3rem;
+    margin: 5px;
+    font-family: 'Sedgwick Ave', cursive;
+    display: flex;
+    align-self: flex-start;
+}
+
+.hero-name {
+    color: #ec4899;
+    margin-left: 15px;
+    background-image: linear-gradient(to right, #ec4899, #9ccdd1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.hero-subtitle {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 5px;
+    font-family: 'Sedgwick Ave', cursive;
+    padding: 20px;
+    letter-spacing: 2px;
+    word-spacing: 5px;
+    width: fit-content;
+    background-image: linear-gradient(to right, #a665de, #9ccdd1);
+    mask: repeating-conic-gradient(from 50deg at 8px 50%,#0000,#000 1deg 79deg,#0000 80deg 180deg) -8px 50%/100% 13.43px;
+    rotate: -20deg;
+    position: relative;
+    left: 25%;
+    transform: translateX(-30%);
+}
+
+.hero-heading {
+    color: #fff;
+    font-size: 15rem;
+    margin: 5px;
+    font-family: 'Sedgwick Ave', cursive;
+    background-image: linear-gradient(70deg, #ec4899, #a665de, #9ccdd1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline-block;
+    position: relative;
+    transform: translateY(-15%);
+}
