@@ -3,11 +3,45 @@ import '../styles/EventDetails.css';
 import { useLocation } from 'react-router-dom';
 import { FaAngleLeft, FaRegCalendar, FaCalendarAlt, FaMapMarker, FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useState, useEffect } from 'react';
+import { getSavedEvents, saveEvent, unsaveEvent } from '../api/userData';
 
 const EventDetails = () => {
     const { eventId } = useParams();
     const location = useLocation();
     const event = location.state?.event;
+    console.log('event images:', event?.images);
+    const { user } = useAuth();
+    const [isSaved, setIsSaved] = useState(false);
+
+    useEffect(() => {
+        if (!event) return;
+        if (user) {
+            getSavedEvents(user.uid).then((savedEvents) => {
+                const isEventSaved = savedEvents.some((e) => e.id === event.id);
+                setIsSaved(isEventSaved);
+            });
+        }
+    }, [event, user]);
+
+    const handleToggleSave = async (event) => {
+        if (!user) {
+            alert("Please log in to save events.");
+            return;
+        }
+        try {
+            if (isSaved) {
+                await unsaveEvent(user.uid, event.id);
+                setIsSaved(false);
+            } else {
+                await saveEvent(user.uid, event);
+                setIsSaved(true);
+            }
+        } catch (error) {
+            console.error("Error toggling save:", error);
+        }
+    };
 
     if (!event) {
         return <p>Event not found.</p>;
@@ -32,6 +66,11 @@ const EventDetails = () => {
         year: 'numeric',
     });
 
+    const getBestImage = (images) => {
+        if (!images || images.length === 0) return null;
+        return images.reduce((best, img) => (img.width > best.width ? img : best));
+    };
+
     const venue = event._embedded?.venues?.[0];
     const address = venue?.address;
     const venueName = venue?.name || 'N/A';
@@ -49,7 +88,7 @@ const EventDetails = () => {
                     <Link to={location.state?.from || '/explore'} state={{ searchQuery: location.state?.searchQuery }} className="back-button">
                         <FaAngleLeft />
                     </Link>
-                    <img src={event.images[0].url} alt={event.name} className="event-details-image" />
+                    <img src={getBestImage(event.images)?.url} alt={event.name} className="event-details-image" />
                 </div>
                 <div className="event-details-info">
                     <h1 className="event-details-title">{event.name}</h1>
@@ -68,8 +107,8 @@ const EventDetails = () => {
                         </a>{' '}
                         <FaExternalLinkAlt size={15} />
                     </p>
-                    <button className="event-save-button" onClick={() => alert('Save functionality not implemented yet.')}>
-                        Save Event
+                    <button className={isSaved ? "event-unsave-button" : "event-save-button"} onClick={() => handleToggleSave(event)}>
+                        {isSaved ? 'Unsave Event' : 'Save Event'}
                     </button>
                 </div>
             </div>

@@ -5,9 +5,15 @@ import { searchEventsByArtist } from "../api/ticketmaster";
 import LoadingSpinner from './LoadingSpinner';
 
 const ArtistCard = ({ artist, isFollowed, onToggleFollow, searchQuery }) => {
+    console.log('artist images:', artist.images);
     const [showEvents, setShowEvents] = useState(false);
     const [events, setEvents] = useState(null);
     const [loadingEvents, setLoadingEvents] = useState(false);
+
+    const getBestImage = (images) => {
+        if (!images || images.length === 0) return null;
+        return images.reduce((best, img) => (img.width > best.width ? img : best));
+    };
 
     const handleEventsClick = async () => {
         if (showEvents) {
@@ -33,7 +39,7 @@ const ArtistCard = ({ artist, isFollowed, onToggleFollow, searchQuery }) => {
     return (
         <div className="artist-card">
             <h2 className="artist-name">{artist.name}</h2>
-            <img src={artist.images?.[0]?.url || artist.imageUrl} alt={artist.name} className="artist-image" />
+            <img src={getBestImage(artist.images)?.url || artist.imageUrl} alt={artist.name} className="artist-image" />
             <div className="artist-description">
                 <p className="artist-genre">Genre: {artist.classifications?.[0]?.genre?.name || artist.genre || "Unknown Genre"}</p>
                 <a href={artist?.url || artist.ticketUrl} target="_blank" rel="noopener noreferrer" className="artist-info">
