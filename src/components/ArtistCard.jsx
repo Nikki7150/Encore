@@ -3,17 +3,13 @@ import { Link } from "react-router-dom";
 import '../styles/Explore.css';
 import { searchEventsByArtist } from "../api/ticketmaster";
 import LoadingSpinner from './LoadingSpinner';
+import { getBestImage } from '../utils/imageHelpers';
 
 const ArtistCard = ({ artist, isFollowed, onToggleFollow, searchQuery }) => {
     console.log('artist images:', artist.images);
     const [showEvents, setShowEvents] = useState(false);
     const [events, setEvents] = useState(null);
     const [loadingEvents, setLoadingEvents] = useState(false);
-
-    const getBestImage = (images) => {
-        if (!images || images.length === 0) return null;
-        return images.reduce((best, img) => (img.width > best.width ? img : best));
-    };
 
     const handleEventsClick = async () => {
         if (showEvents) {

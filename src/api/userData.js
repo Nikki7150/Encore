@@ -1,5 +1,6 @@
 import { doc, setDoc, deleteDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../firebase/config";
+import { getBestImage } from "../utils/imageHelpers";
 
 const saveEvent = async (uid, event) => {
     const userRef = doc(db, "users", uid, "savedEvents", event.id);
@@ -30,7 +31,7 @@ const followArtist = async (uid, artist) => {
     const artistData = {
         name: artist.name,
         genre: artist.classifications?.[0]?.genre?.name || "Unknown Genre",
-        imageUrl: artist.images?.[0]?.url || "",
+        imageUrl: getBestImage(artist.images)?.url || "",
         ticketUrl: artist.url || "",
     };
     return setDoc(userRef, artistData);

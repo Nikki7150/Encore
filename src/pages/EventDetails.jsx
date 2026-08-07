@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useState, useEffect } from 'react';
 import { getSavedEvents, saveEvent, unsaveEvent } from '../api/userData';
+import { getBestImage } from '../utils/imageHelpers';
 
 const EventDetails = () => {
     const { eventId } = useParams();
@@ -65,11 +66,6 @@ const EventDetails = () => {
         day: 'numeric',
         year: 'numeric',
     });
-
-    const getBestImage = (images) => {
-        if (!images || images.length === 0) return null;
-        return images.reduce((best, img) => (img.width > best.width ? img : best));
-    };
 
     const venue = event._embedded?.venues?.[0];
     const address = venue?.address;
