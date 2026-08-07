@@ -28,7 +28,7 @@ const Searchbar = ({ onSearch, initialQuery, placeholder, onClear }) => {
                     onChange={handleInputChange}
                     placeholder={placeholder || "Search..."}
                 />
-                {query && <button className="clear-button" onClick={handleClear}><FaTimes /></button>  }
+                {query && <button type="button" className="clear-button" onClick={handleClear}><FaTimes /></button>  }
                 <button onClick={handleSearch} className="search-button"><FaSearch size="1.25em" /></button>
             </form>
             

@@ -32,19 +32,21 @@ const Following = () => {
             alert("Please log in to follow artists.");
             return;
         }
-        const isFollowed = followedArtists.has(artist);
+        const isFollowed = followedArtists.has(artist.id);
         const next = new Set(followedArtists);
         if (isFollowed) {
             try {
-                await unfollowArtist(user.uid, artist);
-                next.delete(artist);
+                await unfollowArtist(user.uid, artist.id);
+                next.delete(artist.id);
+                setFollowedArtistsData(prev => prev.filter(a => a.id !== artist.id));
             } catch (error) {
                 console.error("Error unfollowing artist:", error);
             }
         } else {
             try {
                 await followArtist(user.uid, artist);
-                next.add(artist);
+                next.add(artist.id);
+                setFollowedArtistsData(prev => [...prev, artist]);
             } catch (error) {
                 console.error("Error following artist:", error);
             }
