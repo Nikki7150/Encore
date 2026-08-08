@@ -24,6 +24,7 @@
     -webkit-background-clip: text;
     color: transparent;
     display: inline-block;
+    height: fit-content;
 }
 
 .hero-subtitle {
@@ -41,6 +42,11 @@
     position: relative;
     left: 25%;
     transform: translateX(-30%);
+    transition: transform 0.9s ease;
+}
+
+.hero-subtitle:hover {
+    transform: translateX(-30%) scale(1.1);
 }
 
 .hero-heading {
