@@ -51,13 +51,11 @@ const Home = () => {
                 ) : (
                     <div className="saved-events-list-home">
                         {savedEvents.slice(0, 4).map((event) => (
-                            <Link key={event.id} to={`/event/${event.id}`} state={{ event, from: '/' }} className="saved-event-link-home">
-                                <div className="saved-event">
-                                    <img src={event.imageUrl} alt={event.name} className="saved-event-image-home" />
-                                    <h3 className='saved-event-name-home'>{event.name}</h3>
-                                    <p className="saved-event-date-home">{formatDate(event.date)}</p>
-                                </div>
-                            </Link>
+                            <div className="saved-event">
+                                <img src={event.imageUrl} alt={event.name} className="saved-event-image-home" />
+                                <h3 className='saved-event-name-home'>{event.name}</h3>
+                                <p className="saved-event-date-home">{formatDate(event.date)}</p>
+                            </div>
                         ))}
                     </div>
                 )}
