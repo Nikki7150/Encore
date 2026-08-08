@@ -133,6 +133,7 @@
     margin: 20px;
     margin-top: 0;
     padding: 30px;
+    flex: 4;
 }
 
 .event-lineup {
@@ -143,6 +144,8 @@
     margin-top: 0;
     padding: 30px;
     border: 4px outset #3f3e3d;
+    width: 100px;
+    flex: 1;
 }
 
 .event-lineup:hover {
@@ -153,6 +156,7 @@
     list-style-type: "ꨄ︎";
     padding: 0;
     margin: 0;
+    width: 100%;
 }
 
 li::marker {

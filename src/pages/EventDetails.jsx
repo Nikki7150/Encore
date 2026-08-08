@@ -12,7 +12,6 @@ const EventDetails = () => {
     const { eventId } = useParams();
     const location = useLocation();
     const event = location.state?.event;
-    console.log('event images:', event?.images);
     const { user } = useAuth();
     const [isSaved, setIsSaved] = useState(false);
 
@@ -48,7 +47,9 @@ const EventDetails = () => {
         return <p>Event not found.</p>;
     }
 
-    const timeStr = event.dates.start.localTime;
+    const rawDate = event.dates?.start?.localDate || event.date;
+    const timeStr = event.dates?.start?.localTime;
+
     let formattedTime = 'TBA';
 
     if (timeStr) {
@@ -60,18 +61,17 @@ const EventDetails = () => {
         formattedTime = `${hour}:${minuteStr} ${ampm}`;
     }
 
-    const rawDate = event.dates.start.localDate; // Example: "2026-08-03"
     const formattedDate = new Date(`${rawDate}T00:00:00`).toLocaleDateString('en-US', {
         month: 'long',
         day: 'numeric',
         year: 'numeric',
     });
 
-    const venue = event._embedded?.venues?.[0];
-    const address = venue?.address;
-    const venueName = venue?.name || 'N/A';
+    const venue = event._embedded?.venues?.[0] || event.venue || {};
+    const venueName = event._embedded?.venues?.[0]?.name || event.venue || 'N/A';
+    const address = event._embedded?.venues?.[0]?.address;
     const addressLine1 = address?.line1 || '';
-    const cityName = address?.city?.name || '';
+    const cityName = address?.city?.name || event.city || '';
     const stateCode = address?.state?.stateCode || '';
     const postalCode = address?.postalCode || '';
     const formattedAddress = [addressLine1, cityName, stateCode, postalCode].filter(Boolean).join(', ') || 'N/A';
@@ -110,17 +110,21 @@ const EventDetails = () => {
             </div>
             <div className="event-additional-container">
                 <div className="event-details-additional">
-                    <p className="event-details-status">Status: {event.dates.status.code}</p>
-                    <p className="event-details-sales">Sales Start: {new Date(event.sales.public.startDateTime).toLocaleString()}</p>
-                    <p className="event-details-sales">Sales End: {new Date(event.sales.public.endDateTime).toLocaleString()}</p>
-                    <p className="event-details-sales">Ticket Limit: {event.ticketLimit ? event.ticketLimit.info : 'N/A'}</p>
-                    <p className="event-details-sales">Ticket Availability: {event.ticketAvailability ? event.ticketAvailability.status : 'N/A'}</p>
+                    {event.dates?.status && (
+                        <>
+                            <p className="event-details-status">Status: {event.dates.status.code}</p>
+                            <p className="event-details-sales">Sales Start: {new Date(event.sales.public.startDateTime).toLocaleString()}</p>
+                            <p className="event-details-sales">Sales End: {new Date(event.sales.public.endDateTime).toLocaleString()}</p>
+                            <p className="event-details-sales">Ticket Limit: {event.ticketLimit ? event.ticketLimit.info : 'N/A'}</p>
+                            <p className="event-details-sales">Ticket Availability: {event.ticketAvailability ? event.ticketAvailability.status : 'N/A'}</p>
+                        </>
+                    )}
                     <p className="event-details-description">{event.info || 'No description available.'}</p>
                     <a href={event.url} target="_blank" rel="noopener noreferrer" className="event-details-link">More Info <FaExternalLinkAlt size={15} /></a>
                 </div>
-                <div className="event-lineup" style={event._embedded.attractions && event._embedded.attractions.length > 0 ? {} : { display: 'none' }}>
+                <div className="event-lineup" style={event._embedded?.attractions && event._embedded?.attractions.length > 0 ? {} : { display: 'none' }}>
                     <h2 className="event-lineup-title"><FaCalendarAlt size={25} /> Lineup</h2>
-                    {event._embedded.attractions && (
+                    {event._embedded?.attractions && (
                         <ul className="event-lineup-list">
                             {event._embedded.attractions.map((attraction) => (
                                 <li key={attraction.id} className="event-lineup-item"> {attraction.name}</li>
