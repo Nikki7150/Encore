@@ -77,6 +77,42 @@ const EventDetails = () => {
     const formattedAddress = [addressLine1, cityName, stateCode, postalCode].filter(Boolean).join(', ') || 'N/A';
     const directionsQuery = [venueName, addressLine1, cityName, stateCode].filter(Boolean).join(', ');
 
+    const formatICSDate = (date) => {
+        const pad = (n) => String(n).padStart(2, '0');
+        const year = date.getFullYear();
+        const month = pad(date.getMonth() + 1);
+        const day = pad(date.getDate());
+        const hours = pad(date.getHours());
+        const minutes = pad(date.getMinutes());
+        const seconds = pad(date.getSeconds());
+        return `${year}${month}${day}T${hours}${minutes}${seconds}`;
+    };
+
+    const generateICS = (event, rawDate, timeStr, venueName, formattedAddress) => {
+        const isoString = `${rawDate}T${timeStr || '19:00:00'}`;
+        const startDate = new Date(isoString);
+        const endDate = new Date(startDate.getTime() + 3 * 60 * 60 * 1000);
+
+        const startDateTime = formatICSDate(startDate);
+        const endDateTime = formatICSDate(endDate);
+
+        const icsContent = `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nBEGIN:VEVENT\r\nSUMMARY:${event.name}\r\nDTSTART:${startDateTime}\r\nDTEND:${endDateTime}\r\nLOCATION:${venueName}, ${formattedAddress}\r\nDESCRIPTION:More information available at ${event.url}\r\nEND:VEVENT\r\nEND:VCALENDAR`;
+        return icsContent;
+    };
+
+    const downloadICS = () => {
+        const icsContent = generateICS(event, rawDate, timeStr, venueName, formattedAddress);
+        const blob = new Blob([icsContent], { type: 'text/calendar' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${event.name}.ics`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    };
+
     return (
         <div className="event-details-screen">
             <div className="event-details-container">
@@ -103,9 +139,14 @@ const EventDetails = () => {
                         </a>{' '}
                         <FaExternalLinkAlt size={15} />
                     </p>
-                    <button className={isSaved ? "event-unsave-button" : "event-save-button"} onClick={() => handleToggleSave(event)}>
-                        {isSaved ? 'Unsave Event' : 'Save Event'}
-                    </button>
+                    <div className="event-details-actions">
+                        <button className={isSaved ? "event-unsave-button" : "event-save-button"} onClick={() => handleToggleSave(event)}>
+                            {isSaved ? 'Unsave Event' : 'Save Event'}
+                        </button>
+                        <button className="event-download-ics-button" onClick={downloadICS}>
+                            Download ICS
+                        </button>
+                    </div>
                 </div>
             </div>
             <div className="event-additional-container">
