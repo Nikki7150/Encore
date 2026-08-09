@@ -1,0 +1,87 @@
+/*----------------------------------------------- EXPLORE PAGE -----------------------------------------------*/
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: #ecd5d5;
+}
+
+.login-title {
+    color: #fff;
+    font-size: 2rem;
+    margin: 5px;
+    font-family: 'Sedgwick Ave', cursive;
+    background-image: linear-gradient(to right, #ec4899, #a665de, #9ccdd1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 400px;
+    font-family: 'Fuzzy Bubbles', cursive;
+    font-size: 1.2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #3a3a3a;
+    color: #ecd5d5;
+    font-family: 'Fuzzy Bubbles', cursive;
+    font-size: 1.2rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    box-shadow: 0 0 5px #9ccdd1;
+}
+
+.error {
+    color: #ec4899;
+}
+
+.login-button {
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #9ccdd1;
+    color: #fff;
+    font-family: 'Fuzzy Bubbles', cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 150px;
+}
+
+.switch-button {
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: transparent;
+    color: #ecd5d5;
+    font-family: 'Fuzzy Bubbles', cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: relative;
+    bottom: -30px;
+}

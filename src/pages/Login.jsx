@@ -29,9 +29,9 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <h2>{isSignUp ? "Sign Up" : "Login"}</h2>
+            <h2 className="login-title">{isSignUp ? "Sign Up" : "Login"}</h2>
             {error && <p className="error">{error}</p>}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="login-form">
                 {isSignUp && (
                     <div className="form-group">
                         <label htmlFor="username">Username:</label>
@@ -61,11 +61,11 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button type="submit">
+                <button type="submit" className="login-button">
                     {isSignUp ? "Sign Up" : "Login"}
                 </button>
             </form>
-            <button onClick={() => setIsSignUp(!isSignUp)}>
+            <button onClick={() => setIsSignUp(!isSignUp)} className="switch-button">
                 {isSignUp ? "Already have an account? Login" : "Don't have an account? Sign Up"}
             </button>
         </div>

@@ -52,28 +52,32 @@ const Profile = () => {
             <h1 className="profile-title">my profile</h1>
             <div className="profile-content">
                 <div className="profile-header">
-                    <p className="profile-welcome">Welcome, {user?.displayName || user?.email}!</p>
+                    <p className="profile-welcome">Welcome, {user?.displayName || user?.email || 'Guest'}!</p>
                     <FaUserCircle size={84} className="profile-icon" />
                     <button className="logout-button" onClick={handleLogout}>
-                        Logout
+                        {user ? 'Logout' : 'Login'}
                     </button>
                 </div>
                 <div className="profile-info">
-                    <p className="profile-username">Username: {user?.displayName || 'Not set'}</p>
-                    <p className="profile-username">Email: {user?.email || 'Not set'}</p>
+                    <p className="profile-username">Username: {user?.displayName || 'Guest'}</p>
+                    <p className="profile-username">Email: {user?.email || 'Guest email'}</p>
                     <p className="profile-username">Joined: {user?.metadata?.creationTime || 'Not set'}</p>
-                    <input className="profile-input" type="text" placeholder="New username" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
-                    <button className="update-username-button" onClick={() => updateUsername(newUsername)}>
-                        Update Username
-                    </button>
-                    <form onSubmit={handleChangePassword} className="profile-password-form">
-                        <input className="profile-input" type="password" placeholder="Current password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
-                        <input className="profile-input" type="password" placeholder="New password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                        <input className="profile-input" type="password" placeholder="Confirm new password" value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} />
-                        <button className="update-password-button" type="submit">
-                            Update Password
-                        </button>
-                    </form>
+                    {user && (
+                        <>
+                            <input className="profile-input" type="text" placeholder="New username" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
+                            <button className="update-username-button" onClick={() => updateUsername(newUsername)}>
+                                Update Username
+                            </button>
+                            <form onSubmit={handleChangePassword} className="profile-password-form">
+                                <input className="profile-input" type="password" placeholder="Current password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
+                                <input className="profile-input" type="password" placeholder="New password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                                <input className="profile-input" type="password" placeholder="Confirm new password" value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} />
+                                <button className="update-password-button" type="submit">
+                                    Update Password
+                                </button>
+                            </form>
+                        </>
+                    )}
                     {passwordError && <p className="profile-error">{passwordError}</p>}
                     {passwordSuccess && <p className="profile-success">{passwordSuccess}</p>}
                 </div>
