@@ -7,7 +7,9 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-logo">
-                <img src="./src/assets/encore-icon.png" alt="Encore Logo" className="logo-image" />
+                <NavLink to="/">
+                    <img src="./src/assets/encore-icon.png" alt="Encore Logo" className="logo-image" />
+                </NavLink>
             </div>
             <div className="navbar-links">
                 <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>
