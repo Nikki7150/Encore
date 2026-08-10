@@ -179,3 +179,15 @@
 .artist-events-popup li:hover {
     color: #ec4899;
 }
+
+@media (max-width: 700px) {
+    .artist-card {
+        width: 100%;
+    }
+    .artist-events-popup {
+        left: 0;
+        width: 100%;
+        position: static;
+        margin-top: 10px;
+    }
+}

@@ -150,3 +150,43 @@
     margin-right: 40px;
     align-self: center;
 }
+
+@media (max-width: 700px) {
+    .timeline-line {
+        left: 50px;
+    }
+    .timeline-dot {
+        margin: 0 15px;
+        width: 18px;
+        height: 18px;
+    }
+    .saved-event-date {
+        font-size: 1.4rem;
+        width: 35px;
+    }
+    .saved-event-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px;
+    }
+    .saved-event-image {
+        max-width: 100%;
+        height: auto;
+    }
+    .saved-event-name {
+        font-size: 1.6rem;
+    }
+    .saved-event-venue,
+    .saved-event-city {
+        font-size: 1rem;
+        margin: 5px 0;
+    }
+    .saved-event-ticket-link {
+        font-size: 0.9rem;
+        padding: 8px 14px;
+    }
+    .saved-event-bookmark {
+        font-size: 1.5rem;
+        margin: 10px 0 0 0;
+    }
+}

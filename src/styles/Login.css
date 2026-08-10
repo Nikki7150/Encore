@@ -85,3 +85,13 @@
     position: relative;
     bottom: -30px;
 }
+
+@media (max-width: 480px) {
+    .login-form {
+        max-width: 90%;
+    }
+    .login-button {
+        margin-left: 0;
+        align-self: center;
+    }
+}

@@ -11,7 +11,7 @@ import Profile from './pages/Profile'
 
 function App() {
   return (
-    <div className="App" style={{ paddingLeft: '70px' }}>
+    <div className="App">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

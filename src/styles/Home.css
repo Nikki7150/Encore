@@ -232,3 +232,31 @@
 .saved-event-link-home {
     display: contents;
 }
+
+@media (max-width: 900px) {
+    .hero-heading {
+        font-size: 6rem;
+    }
+    .saved-event,
+    .followed-artist {
+        width: 280px;
+    }
+    .saved-events-list-home,
+    .followed-artists-list {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-heading {
+        font-size: 3.5rem;
+    }
+    .hero-title {
+        font-size: 2rem;
+    }
+    .saved-event,
+    .followed-artist {
+        width: 100%;
+    }
+}

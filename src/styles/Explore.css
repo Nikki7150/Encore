@@ -260,3 +260,35 @@ a {
     background: linear-gradient(to right, #6f8b8f, #9ccdd1);
     color: #000000;
 }
+
+@media (max-width: 1050px) {
+    .event-card {
+        min-width: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .event-card {
+        flex-direction: column;
+    }
+    .event-info {
+        border-right: none;
+        border-bottom: 3px dashed #222020;
+        mask: none;
+        width: 100%;
+    }
+    .event-save {
+        border-left: none;
+        mask: none;
+        width: 100%;
+    }
+    .event-name {
+        font-size: 2rem;
+    }
+    .event-info,
+    .event-save {
+        box-sizing: border-box;
+    }
+}

@@ -96,3 +96,29 @@
     color: #ecd5d5;
     margin-left: 16px;
 }
+
+@media (max-width: 700px) {
+    .navbar {
+        width: 100%;
+        height: 60px;
+        flex-direction: row;
+        justify-content: space-around;
+        top: auto;
+        bottom: 0;
+        border-radius: 0;
+    }
+    .navbar:hover {
+        width: 100%;
+    }
+    .navbar-links {
+        flex-direction: row;
+        margin-top: 0;
+        gap: 0;
+    }
+    .nav-label {
+        display: none;
+    }
+    .logo-image {
+        display: none;
+    }
+}
