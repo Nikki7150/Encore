@@ -2,13 +2,14 @@ import '../styles/Navbar.css';
 import { NavLink } from 'react-router-dom';
 import { FaSearch, FaRegUser, FaHome, FaRegCheckCircle } from "react-icons/fa";
 import { IoBookmarkOutline } from 'react-icons/io5';
+import encoreLogo from '../assets/encore-icon.png';
 
 const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-logo">
                 <NavLink to="/">
-                    <img src="./src/assets/encore-icon.png" alt="Encore Logo" className="logo-image" />
+                    <img src={encoreLogo} alt="Encore Logo" className="logo-image" />
                 </NavLink>
             </div>
             <div className="navbar-links">
