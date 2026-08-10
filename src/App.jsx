@@ -8,6 +8,7 @@ import MyEvents from './pages/MyEvents'
 import Following from './pages/Following'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
+import './styles/App.css'
 
 function App() {
   return (
